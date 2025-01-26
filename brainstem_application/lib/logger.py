@@ -81,6 +81,92 @@ class Logger:
         self.log_file = log_file
         self.log_level = log_level
 
+    def log(self, message: str, level: str = 'INFO'):
+        """ Logs a message with the specified severity level.
+
+        Args:
+            message (str): The message to log.
+            level (str): The severity level of the message. Options include 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'.
+        """
+        if not isinstance(message, str):
+            raise ValueError(f"[Logger]: message must be a valid string. Got \"{type(message)}\"")
+        if level not in LogLevel.__members__:
+            raise ValueError(f"[Logger]: log level not valid. Got \"{str(level)}\"")
+
+        if self._should_log(level):
+            message = f"[{level}] {message}"
+            self._write_to_file(message)
+            if self.print_to_console:
+                print(message)
+
+    def debug(self, message: str):
+        """ Logs a debug-level message.
+
+        Args:
+            message (str): The message to log.
+        """
+        self.log(message, 'DEBUG')
+
+    def info(self, message: str):
+        """ Logs an info-level message.
+
+        Args:
+            message (str): The message to log.
+        """
+        self.log(message, 'INFO')
+
+    def warning(self, message: str):
+        """ Logs a warning-level message.
+
+        Args:
+            message (str): The message to log.
+        """
+        self.log(message, 'WARNING')
+
+    def error(self, message: str):
+        """ Logs an error-level message.
+
+        Args:
+            message (str): The message to log.
+        """
+        self.log(message, 'ERROR')
+
+    def critical(self, message: str):
+        """ Logs a critical-level message.
+
+        Args:
+            message (str): The message to log.
+        """
+        self.log(message, 'CRITICAL')
+
+    def set_log_level(self, level: str):
+        """ Sets the minimum log level for recording messages.
+
+        Args:
+            level (str): The minimum log level for messages to be recorded. Options include 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'.
+        """
+        self.log_level = level
+
+    def _should_log(self, level: str) -> bool:
+        """ Determines if a message should be logged based on the current log level.
+
+        Args:
+            level (str): The severity level of the message. Options include 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'.
+
+        Returns:
+            bool: True if the message should be logged, False otherwise.
+        """
+        return LogLevel(self.log_level) <= LogLevel(level)
+
+    def _write_to_file(self, message: str):
+        """ Writes the log message to the specified log file.
+
+        Args:
+            message (str): The message to log.
+        """
+        with open(self.log_file, 'a') as f:
+            f.write(f"{message}\n")
+
     @staticmethod
     def _verify_log_file(log_file: str):
         """ Verifies that the log file is valid and can be written to. """
