@@ -4,11 +4,13 @@ lib/logger.py
 ...
 """
 
+import os
+from datetime import datetime
 from enum import Enum
 
 
 class LogLevel(Enum):
-    """ An enumeration of log levels for messages.
+    """An enumeration of log levels for messages.
 
     Attributes:
         DEBUG (str): A debug-level log message.
@@ -17,15 +19,20 @@ class LogLevel(Enum):
         ERROR (str): An error-level log message.
         CRITICAL (str): A critical-level log message.
     """
-    DEBUG = 'DEBUG'
-    INFO = 'INFO'
-    WARNING = 'WARNING'
-    ERROR = 'ERROR'
-    CRITICAL = 'CRITICAL'
+
+    DEBUG = 0
+    INFO = 1
+    WARNING = 2
+    ERROR = 3
+    CRITICAL = 4
+
+    @staticmethod
+    def get_level(level: str) -> int:
+        return LogLevel[level].value
 
 
 class Logger:
-    """ A Logger class for managing and recording log messages with varying severity levels.
+    """A Logger class for managing and recording log messages with varying severity levels.
 
     Attributes:
         log_file (str): The file path where log messages will be written.
@@ -63,84 +70,96 @@ class Logger:
             Writes the log message to the specified log file.
     """
 
-    def __init__(self,
-                 print_to_console: bool = False,
-                 log_file: str = None,
-                 log_level: str = 'INFO'
-                 ):
-        """ Initializes the Logger with the specified log file and log level.
+    def __init__(
+        self,
+        print_to_console: bool = False,
+        log_file: str = None,
+        log_level: str = "INFO",
+        create_log_directory: bool = False,
+    ):
+        """Initializes the Logger with the specified log file and log level.
 
         Args:
-            print_to_console (bool): Whether or not to print log messages to the console.
+            create_log_directory (bool): Whether to create the log directory if it doesn't exist.
+            print_to_console (bool): Whether to print log messages to the console.
             log_file (str): The file path where log messages will be written.
             log_level (str): The minimum log level for messages to be recorded. Options include 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'.
         """
-        Logger._verify_log_file(log_file)
+        logger_found = Logger._verify_log_file(log_file)
+
+        if not logger_found and not create_log_directory:
+            raise ValueError("[Logger]: Log file not found and was not created.")
+
+        if not logger_found and create_log_directory:
+            # create the directory if it doesn't exist
+            os.makedirs(os.path.dirname(log_file), exist_ok=True)
 
         self.print_to_console = print_to_console
         self.log_file = log_file
         self.log_level = log_level
 
-    def log(self, message: str, level: str = 'INFO'):
-        """ Logs a message with the specified severity level.
+    def log(self, message: str, level: str = "INFO"):
+        """Logs a message with the specified severity level.
 
         Args:
             message (str): The message to log.
             level (str): The severity level of the message. Options include 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'.
         """
         if not isinstance(message, str):
-            raise ValueError(f"[Logger]: message must be a valid string. Got \"{type(message)}\"")
+            raise ValueError(
+                f'[Logger]: message must be a valid string. Got "{type(message)}"'
+            )
         if level not in LogLevel.__members__:
-            raise ValueError(f"[Logger]: log level not valid. Got \"{str(level)}\"")
+            raise ValueError(f'[Logger]: log level not valid. Got "{str(level)}"')
 
         if self._should_log(level):
-            message = f"[{level}] {message}"
+            message = f"{datetime.now().isoformat()} [{level}] {message}"
             self._write_to_file(message)
             if self.print_to_console:
                 print(message)
 
     def debug(self, message: str):
-        """ Logs a debug-level message.
+        """Logs a debug-level message.
 
         Args:
             message (str): The message to log.
         """
-        self.log(message, 'DEBUG')
+        self.log(message, "DEBUG")
 
     def info(self, message: str):
-        """ Logs an info-level message.
+        """Logs an info-level message.
 
         Args:
             message (str): The message to log.
         """
-        self.log(message, 'INFO')
+        self.log(message, "INFO")
 
     def warning(self, message: str):
-        """ Logs a warning-level message.
+        """Logs a warning-level message.
 
         Args:
             message (str): The message to log.
         """
-        self.log(message, 'WARNING')
+        self.log(message, "WARNING")
 
     def error(self, message: str):
-        """ Logs an error-level message.
+        """Logs an error-level message.
 
         Args:
             message (str): The message to log.
         """
-        self.log(message, 'ERROR')
+        self.log(message, "ERROR")
 
     def critical(self, message: str):
-        """ Logs a critical-level message.
+        """Logs a critical-level message.
 
         Args:
             message (str): The message to log.
         """
-        self.log(message, 'CRITICAL')
+        self.log(message, "CRITICAL")
 
     def set_log_level(self, level: str):
-        """ Sets the minimum log level for recording messages.
+        """Sets the minimum log level for recording messages.
 
         Args:
             level (str): The minimum log level for messages to be recorded. Options include 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'.
@@ -148,7 +167,7 @@ class Logger:
         self.log_level = level
 
     def _should_log(self, level: str) -> bool:
-        """ Determines if a message should be logged based on the current log level.
+        """Determines if a message should be logged based on the current log level.
 
         Args:
             level (str): The severity level of the message. Options include 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'.
@@ -156,24 +175,27 @@ class Logger:
         Returns:
             bool: True if the message should be logged, False otherwise.
         """
-        return LogLevel(self.log_level) <= LogLevel(level)
+        return LogLevel.get_level(level) >= LogLevel.get_level(self.log_level)
 
     def _write_to_file(self, message: str):
-        """ Writes the log message to the specified log file.
+        """Writes the log message to the specified log file.
 
         Args:
             message (str): The message to log.
         """
-        with open(self.log_file, 'a') as f:
+        with open(self.log_file, "a") as f:
             f.write(f"{message}\n")
 
     @staticmethod
-    def _verify_log_file(log_file: str):
-        """ Verifies that the log file is valid and can be written to. """
+    def _verify_log_file(log_file: str) -> bool:
+        """Verifies that the log file is valid and can be written to."""
         if log_file is None:
-            raise ValueError("No log file specified.")
+            raise ValueError("[Logger]: No log file specified.")
         try:
-            with open(log_file, 'a') as f:
-                pass
+            with open(log_file, "a") as f:
+                return True
         except Exception as e:
-            raise ValueError(f"Invalid log file: {e}")
+            return False
+
+
+default_logger = Logger(log_file="activity.log", print_to_console=True, create_log_directory=True)

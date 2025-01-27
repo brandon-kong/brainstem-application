@@ -1,1 +1,13 @@
+# Environment
 .venv
+
+# Log files
+*.log
+
+# Cache
+__pycache__
+*.pyc
+
+# Coverage
+.coverage
+coverage.xml
