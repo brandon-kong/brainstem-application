@@ -104,6 +104,17 @@ class TestLogger(unittest.TestCase):
         last_dir = "/".join(dirs[: len(dirs) - 1])
         self.assertTrue(os.path.exists(last_dir))
 
+    def test_set_log_level(self):
+        logger = Logger(
+            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE
+        )
+
+        self.assertEqual(logger.log_level, LOG_LEVEL)
+
+        logger.set_log_level("CRITICAL")
+
+        self.assertEqual(logger.log_level, "CRITICAL")
+
     def tearDown(self):
         dirs = LOG_FILE_NEW_DIR.split("/")
         last_dir = "/".join(dirs[: len(dirs) - 1])
@@ -113,3 +124,4 @@ class TestLogger(unittest.TestCase):
             os.rmdir(last_dir)
 
         return super().tearDown()
+    
