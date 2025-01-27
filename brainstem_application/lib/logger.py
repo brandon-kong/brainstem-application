@@ -198,4 +198,6 @@ class Logger:
             return False
 
 
-default_logger = Logger(log_file="activity.log", print_to_console=True, create_log_directory=True)
+default_logger = Logger(
+    log_file="activity.log", print_to_console=True, create_log_directory=True
+)

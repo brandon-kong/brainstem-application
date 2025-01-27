@@ -4,6 +4,7 @@ This module contains the DataRetrievalService class, which is a service that ret
 
 from brainstem_application.services.base import Service
 
+
 class DataRetrievalService(Service):
     def __init__(self):
         super().__init__("Data Retrieval Service")
