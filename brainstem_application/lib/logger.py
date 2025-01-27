@@ -196,3 +196,6 @@ class Logger:
                 return True
         except Exception as e:
             return False
+
+
+default_logger = Logger(log_file="activity.log", print_to_console=True, create_log_directory=True)
