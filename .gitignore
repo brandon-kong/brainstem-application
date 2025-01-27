@@ -1,1 +1,9 @@
+# Environment
 .venv
+
+# Log files
+*.log
+
+# Coverage
+.coverage
+coverage.xml

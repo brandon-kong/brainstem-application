@@ -1,16 +1,22 @@
 import unittest
 
 from brainstem_application.lib.logger import Logger
+from brainstem_application.constants import ROOT_DIR
 
 # Logger configurations
-LOG_FILE = 'logs/test/test.log'
+LOG_FILE = f'{ROOT_DIR}/logs/test/test.log'
 LOG_LEVEL = 'DEBUG'
 PRINT_TO_CONSOLE = False
+CREATE_LOG_DIR = True
 
 
 class TestLogger(unittest.TestCase):
     def test_log_creation(self):
-        logger = Logger(log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE)
+        logger = Logger(log_file=LOG_FILE,
+                        log_level=LOG_LEVEL,
+                        print_to_console=PRINT_TO_CONSOLE,
+                        create_log_directory=CREATE_LOG_DIR
+                        )
         self.assertEqual(logger.log_file, LOG_FILE)
         self.assertEqual(logger.log_level, LOG_LEVEL)
         self.assertEqual(logger.print_to_console, PRINT_TO_CONSOLE)

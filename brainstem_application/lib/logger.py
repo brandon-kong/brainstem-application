@@ -4,6 +4,8 @@ lib/logger.py
 ...
 """
 
+import os
+from datetime import datetime
 from enum import Enum
 
 
@@ -17,11 +19,17 @@ class LogLevel(Enum):
         ERROR (str): An error-level log message.
         CRITICAL (str): A critical-level log message.
     """
-    DEBUG = 'DEBUG'
-    INFO = 'INFO'
-    WARNING = 'WARNING'
-    ERROR = 'ERROR'
-    CRITICAL = 'CRITICAL'
+    DEBUG = 0
+    INFO = 1
+    WARNING = 2
+    ERROR = 3
+    CRITICAL = 4
+
+    @staticmethod
+    def get_level(level: str) -> int:
+        if level not in LogLevel.__members__:
+            raise ValueError(f"[LogLevel]: log level not valid. Got \"{str(level)}\"")
+        return LogLevel[level].value
 
 
 class Logger:
@@ -66,16 +74,25 @@ class Logger:
     def __init__(self,
                  print_to_console: bool = False,
                  log_file: str = None,
-                 log_level: str = 'INFO'
+                 log_level: str = 'INFO',
+                 create_log_directory: bool = False
                  ):
         """ Initializes the Logger with the specified log file and log level.
 
         Args:
-            print_to_console (bool): Whether or not to print log messages to the console.
+            create_log_directory (bool): Whether to create the log directory if it doesn't exist.
+            print_to_console (bool): Whether to print log messages to the console.
             log_file (str): The file path where log messages will be written.
             log_level (str): The minimum log level for messages to be recorded. Options include 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'.
         """
-        Logger._verify_log_file(log_file)
+        logger_found = Logger._verify_log_file(log_file)
+
+        if not logger_found and not create_log_directory:
+            raise ValueError("[Logger]: Log file not found and was not created.")
+
+        if not logger_found and create_log_directory:
+            # create the directory if it doesn't exist
+            os.makedirs(os.path.dirname(log_file), exist_ok=True)
 
         self.print_to_console = print_to_console
         self.log_file = log_file
@@ -94,7 +111,7 @@ class Logger:
             raise ValueError(f"[Logger]: log level not valid. Got \"{str(level)}\"")
 
         if self._should_log(level):
-            message = f"[{level}] {message}"
+            message = f"{datetime.now().isoformat()} [{level}] {message}"
             self._write_to_file(message)
             if self.print_to_console:
                 print(message)
@@ -156,7 +173,7 @@ class Logger:
         Returns:
             bool: True if the message should be logged, False otherwise.
         """
-        return LogLevel(self.log_level) <= LogLevel(level)
+        return LogLevel.get_level(level) >= LogLevel.get_level(self.log_level)
 
     def _write_to_file(self, message: str):
         """ Writes the log message to the specified log file.
@@ -168,12 +185,12 @@ class Logger:
             f.write(f"{message}\n")
 
     @staticmethod
-    def _verify_log_file(log_file: str):
+    def _verify_log_file(log_file: str) -> bool:
         """ Verifies that the log file is valid and can be written to. """
         if log_file is None:
-            raise ValueError("No log file specified.")
+            raise ValueError("[Logger]: No log file specified.")
         try:
             with open(log_file, 'a') as f:
-                pass
+                return True
         except Exception as e:
-            raise ValueError(f"Invalid log file: {e}")
+            return False
