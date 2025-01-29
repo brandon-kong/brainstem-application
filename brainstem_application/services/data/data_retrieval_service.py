@@ -1,4 +1,4 @@
-""" Data Retrieval Service
+"""Data Retrieval Service
 This module contains the DataRetrievalService class, which is a service that retrieves data from a data source.
 """
 
