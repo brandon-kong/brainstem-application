@@ -32,7 +32,10 @@ def main():
     logger.debug("Starting application...")
 
     options = {
-        "Perform K-means clustering": lambda: print("Performing K-means clustering"),
+        "Data Services": lambda: Menu(
+            {"idk": lambda: print("TEST")},
+            "Which data service would you like to access?",
+        ).run(),
         "Perform PCA": lambda: print("Performing PCA"),
         "Perform t-SNE": lambda: print("Performing t-SNE"),
     }
