@@ -8,7 +8,7 @@ from constants import ROOT_DIR
 
 
 LOG_LEVEL_CONTEXT = LogLevel.DEBUG.name
-logger = Logger(log_file=f"{ROOT_DIR}/logs/activity.log", log_level=LOG_LEVEL_CONTEXT)
+logger = Logger(log_file=f"{ROOT_DIR}/logs/activity.log", log_level=LOG_LEVEL_CONTEXT, create_log_directory=True)
 
 
 def exit_program():
