@@ -1,3 +1,9 @@
+"""
+constants.py
+
+Stores the static, immutable, and specific data throughout the application
+"""
+
 import os
 
 # Project Constants

@@ -1,3 +1,5 @@
+"""main.py"""
+
 import sys
 from lib.logger import Logger, LogLevel
 
@@ -17,6 +19,7 @@ logger = Logger(
 
 def exit_program():
     """Logs the ending of the program"""
+
     Printer.error("Exiting program...")
     logger.debug("Ending application...")
 
@@ -24,6 +27,8 @@ def exit_program():
 
 
 def main():
+    """Entry point of the software's lifecycle"""
+
     logger.debug("Starting application...")
 
     options = {
