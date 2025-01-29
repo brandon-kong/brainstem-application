@@ -1,6 +1,7 @@
 """main.py"""
 
 import sys
+import sqlite3
 from lib.logger import Logger, LogLevel
 
 from utils.menu import Menu
@@ -31,6 +32,9 @@ def main():
 
     logger.debug("Starting application...")
 
+    # Create SQLite database connection
+    db_connection = sqlite3.connect("sqlite3.db")
+
     options = {
         "Data Services": lambda: Menu(
             {"idk": lambda: print("TEST")},
@@ -42,6 +46,9 @@ def main():
 
     menu = Menu(options, include_exit=True, include_back=False)
     menu.run()
+
+    # Close the database connection
+    db_connection.close()
 
     exit_program()
 
