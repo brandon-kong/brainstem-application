@@ -34,13 +34,13 @@ class TestLogger(unittest.TestCase):
 
     def test_log_positive(self):
         logger = Logger(
-            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE
+            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE, create_log_directory=CREATE_LOG_DIR
         )
         logger.log("This is a test log message", "INFO")
 
     def test_log_negative(self):
         logger = Logger(
-            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE
+            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE, create_log_directory=CREATE_LOG_DIR
         )
         with self.assertRaises(ValueError):
             logger.log(123, "INFO")
@@ -49,31 +49,31 @@ class TestLogger(unittest.TestCase):
 
     def test_debug_positive(self):
         logger = Logger(
-            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE
+            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE, create_log_directory=CREATE_LOG_DIR
         )
         logger.debug("This is a test debug message")
 
     def test_info_positive(self):
         logger = Logger(
-            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE
+            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE, create_log_directory=CREATE_LOG_DIR
         )
         logger.info("This is a test info message")
 
     def test_warning_positive(self):
         logger = Logger(
-            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE
+            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE,  create_log_directory=CREATE_LOG_DIR
         )
         logger.warning("This is a test warning message")
 
     def test_error_positive(self):
         logger = Logger(
-            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE
+            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE, create_log_directory=CREATE_LOG_DIR
         )
         logger.error("This is a test error message")
 
     def test_critical_positive(self):
         logger = Logger(
-            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE
+            log_file=LOG_FILE, log_level=LOG_LEVEL, print_to_console=PRINT_TO_CONSOLE, create_log_directory=CREATE_LOG_DIR
         )
         logger.critical("This is a test critical message")
 
