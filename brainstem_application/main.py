@@ -9,6 +9,8 @@ from utils.printer import Printer
 
 from constants import ROOT_DIR
 
+from services.data.data_retrieval_service import DataRetrievalService
+
 
 LOG_LEVEL_CONTEXT = LogLevel.DEBUG.name
 logger = Logger(
@@ -37,7 +39,16 @@ def main():
 
     options = {
         "Data Services": lambda: Menu(
-            {"Data Retrieval Service": lambda: print("TEST")},
+            {
+                "Data Retrieval Service": lambda: Menu(
+                    {
+                        "Get Gene Set from Product": lambda: print(
+                            DataRetrievalService().get_geneset_from_product(2)
+                        ),
+                    },
+                    start_message="What would you like to do with the Data Retrieval Service?",
+                ).run()
+            },
             "Which data service would you like to access?",
         ).run(),
         "Perform PCA": lambda: print("Performing PCA"),
