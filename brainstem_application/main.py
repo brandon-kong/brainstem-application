@@ -37,7 +37,7 @@ def main():
 
     options = {
         "Data Services": lambda: Menu(
-            {"idk": lambda: print("TEST")},
+            {"Data Retrieval Service": lambda: print("TEST")},
             "Which data service would you like to access?",
         ).run(),
         "Perform PCA": lambda: print("Performing PCA"),

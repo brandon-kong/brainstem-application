@@ -9,6 +9,9 @@ class DataRetrievalService(Service):
     def __init__(self):
         super().__init__("Data Retrieval Service")
 
+    def get_geneset_from_product(product_id):
+        pass
+
     def docs(self):
         return "This service retrieves data from a data source."
 
