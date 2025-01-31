@@ -63,7 +63,7 @@ def get_list_of_amba_brain_atlas_product_names():
     if products is not None:
         products.sort(key=lambda x: x.id)
         return [
-            product.name
+            (product.id, product.name)
             for product in products
             if "brain" in product.resource.lower()
             and "atlas" in product.resource.lower()

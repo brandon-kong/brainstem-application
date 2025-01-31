@@ -32,7 +32,8 @@ class DataRetrievalService(Service):
     def __init__(self):
         super().__init__("Data Retrieval Service")
 
-    def get_geneset_from_product(self, product_id: int):
+    @staticmethod
+    def get_geneset_from_product(product_id: int):
         """
         Get a gene set from a product
         """
@@ -47,7 +48,7 @@ class DataRetrievalService(Service):
                     f"An error occurred while retrieving the gene set from the product 1: {data['msg']}"
                 )
                 return None
-
+            
             return [Gene(**gene) for gene in data["msg"]]
         except Exception as e:
             print(

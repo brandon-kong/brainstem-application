@@ -4,7 +4,6 @@ from utils.printer import Printer, Color
 
 type Options = Dict[str, Callable[[], None]]
 
-
 class Menu:
     """
     The Menu class provides a way to create a menu that allows the user to select an option from a list of options.
@@ -33,15 +32,18 @@ class Menu:
         start_message: str = "Please select an option from the menu below:",
         include_exit: bool = False,
         include_back: bool = True,
+        stop_on_selection: bool = False,
     ):
 
         self.options = options
         self.start_message = start_message
         self.include_exit = include_exit
         self.include_back = include_back
+        self.stop_on_selection = stop_on_selection
+        self.stopped = False
 
     def run(self):
-        while True:
+        while True and not self.stopped:
             Printer.print(f"\n{self.start_message}\n")
 
             if self.include_exit:
@@ -89,5 +91,10 @@ class Menu:
 
             if action:
                 action()
+                if self.stop_on_selection:
+                    return
             else:
                 Printer.error("Invalid option")
+
+    def stop(self):
+        self.stopped = True
