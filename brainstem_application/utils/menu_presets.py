@@ -1,6 +1,8 @@
 from utils.menu import Menu
 from utils.amba_product_loader import get_list_of_amba_brain_atlas_product_names
+from utils.profiler import time_function
 
+from constants import DATA_DIR
 from services.data.data_retrieval_service import DataRetrievalService
 
 
@@ -8,6 +10,7 @@ from services.data.data_retrieval_service import DataRetrievalService
 AMBA_BRAIN_ATLAS_PRODUCT_NAMES = get_list_of_amba_brain_atlas_product_names()
 
 # Define options for the Data Retrieval Service menu
+
 
 def export_genes(genes: list):
     """
@@ -25,9 +28,10 @@ def retrieve_geneset_prompt(product_id: int, product_name: str):
     """
     Retrieve a gene set from an AMBA product
     """
-    genes = DataRetrievalService.get_geneset_from_product(product_id)
+    genes = time_function(DataRetrievalService.get_geneset_from_product)(product_id)
+
     if genes is not None:
-        print(f"{len(genes)} genes found in {product_name} with ID {product_id}")
+        print(f"{len(genes)} genes found in {product_name}")
 
     Menu(
         {

@@ -10,6 +10,8 @@ import os
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__)) + "/.."
 BRAINSTEM_APPLICATION_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = f"{ROOT_DIR}/data"
+LOGS_DIR = f"{ROOT_DIR}/logs"
 
 AMBA_ATLAS_IDS = {
     "Mouse, P56, Coronal": 1,
