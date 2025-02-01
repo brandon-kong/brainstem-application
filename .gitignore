@@ -1,6 +1,10 @@
 # Environment
 .venv
 
+# Data files
+*.sqlite3
+data/generated/**/*
+
 # Log files
 *.log
 

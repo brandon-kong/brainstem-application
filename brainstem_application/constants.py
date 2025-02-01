@@ -10,7 +10,11 @@ import os
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__)) + "/.."
 BRAINSTEM_APPLICATION_DIR = os.path.dirname(os.path.abspath(__file__))
+
 DATA_DIR = f"{ROOT_DIR}/data"
+DATA_GENERATED_DIR = f"{DATA_DIR}/generated"
+DATA_GENERATED_GENESET_DIR = f"{DATA_GENERATED_DIR}/geneset"
+
 LOGS_DIR = f"{ROOT_DIR}/logs"
 
 AMBA_ATLAS_IDS = {

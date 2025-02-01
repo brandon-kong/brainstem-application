@@ -4,24 +4,13 @@ from utils.profiler import time_function
 
 from constants import DATA_DIR
 from services.data.data_retrieval_service import DataRetrievalService
-
+from services.file_save_service import FileSaveService
 
 # cache the list of AMBA brain atlas product names
 AMBA_BRAIN_ATLAS_PRODUCT_NAMES = get_list_of_amba_brain_atlas_product_names()
 
 # Define options for the Data Retrieval Service menu
 
-
-def export_genes(genes: list):
-    """
-    Export genes to a file
-    """
-    with open("genes.txt", "w") as file:
-        for gene in genes:
-            file.write(f"{gene.acronym}\n")
-
-    print("Genes exported to genes.txt")
-    
 
 
 def retrieve_geneset_prompt(product_id: int, product_name: str):
@@ -36,7 +25,7 @@ def retrieve_geneset_prompt(product_id: int, product_name: str):
     Menu(
         {
             "View Genes": lambda: print(genes),
-            "Export Genes": lambda: export_genes(genes),
+            "Export Genes": lambda: FileSaveService.save_geneset_to_file(genes, f"genes_product_{product_id}.txt"),
         },
         start_message="What would you like to do with the gene set?",
         stop_on_selection=False,
