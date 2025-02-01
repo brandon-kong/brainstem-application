@@ -33,6 +33,7 @@ class Menu:
         include_exit: bool = False,
         include_back: bool = True,
         stop_on_selection: bool = False,
+        max_page_size: int = 10,
     ):
 
         self.options = options
@@ -41,6 +42,8 @@ class Menu:
         self.include_back = include_back
         self.stop_on_selection = stop_on_selection
         self.stopped = False
+        self.max_page_size = max_page_size
+        self.current_page = 0
 
     def run(self):
         while True and not self.stopped:
@@ -52,16 +55,27 @@ class Menu:
             if self.include_back:
                 self.options["Back"] = lambda: "back"
 
-            enumerated = enumerate(self.options.keys())
+            options_list = list(self.options.keys())
+            total_pages = (len(options_list) + self.max_page_size - 1) // self.max_page_size if self.max_page_size > 0 else 1
 
-            for i, option in enumerated:
+            if self.max_page_size > 0:
+                start_index = self.current_page * self.max_page_size
+                end_index = start_index + self.max_page_size
+                paginated_options = options_list[start_index:end_index]
+            else:
+                paginated_options = options_list
+
+            for i, option in enumerate(paginated_options):
                 if option == "Back":
                     Printer.custom(f"[back] {option}", color=Color.YELLOW)
                 elif option == "Exit":
                     Printer.custom(f"[exit] {option}", color=Color.RED)
-
                 else:
                     Printer.print(f"[{i + 1}] {option}")
+
+            if self.max_page_size > 0 and total_pages > 1:
+                Printer.print(f"\nPage {self.current_page + 1} of {total_pages}")
+                Printer.print("Enter 'n' for next page, 'p' for previous page, or select an option.")
 
             # Print an extra line
             print()
@@ -74,6 +88,14 @@ class Menu:
             if choice.lower() == "back" and self.include_back:
                 return
 
+            if self.max_page_size > 0 and total_pages > 1:
+                if choice.lower() == 'n':
+                    self.current_page = (self.current_page + 1) % total_pages
+                    continue
+                elif choice.lower() == 'p':
+                    self.current_page = (self.current_page - 1) % total_pages
+                    continue
+
             # Check if the choice is a number
             if not choice.isdigit():
                 Printer.error("Invalid option")
@@ -81,13 +103,12 @@ class Menu:
 
             choice = int(choice) - 1
 
-            if choice < 0 or choice >= len(self.options.keys()) - 1:
+            if choice < 0 or choice >= len(paginated_options):
                 Printer.error("Invalid option")
                 continue
 
-            choice = list(self.options.keys())[choice]
-
-            action = self.options.get(choice)
+            selected_option = paginated_options[choice]
+            action = self.options.get(selected_option)
 
             if action:
                 action()

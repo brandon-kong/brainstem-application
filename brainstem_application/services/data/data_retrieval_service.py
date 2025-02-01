@@ -18,15 +18,14 @@ class Gene(BaseModel):
     genomic_reference_update_id: Optional[int] = None
     homologene_id: Optional[int] = None
     id: int
-    legacy_ensembl_gene_id: Optional[str] = None
+    legacy_ensembl_gene_id: Optional[str | int] = None
     name: str
     organism_id: int
     original_name: str
     original_symbol: str
-    reference_genome_id: Optional[str] = None
+    reference_genome_id: Optional[str | int] = None
     sphinx_id: int
     version_status: Optional[str] = None
-
 
 class DataRetrievalService(Service):
     def __init__(self):
