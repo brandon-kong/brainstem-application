@@ -6,7 +6,6 @@ from lib.logger import Logger, LogLevel
 
 from utils.menu import Menu
 from utils.printer import Printer
-from utils.amba_product_loader import get_list_of_amba_brain_atlas_product_names
 from utils.menu_presets import DATA_RETRIEVAL_MENU
 from constants import ROOT_DIR
 

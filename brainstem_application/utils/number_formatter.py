@@ -1,6 +1,7 @@
 def comma_separated_number(number: int) -> str:
     return "{:,}".format(number)
 
+
 def format_seconds(seconds: float) -> str:
     """
     Format seconds depending on the number of hours, minutes, and seconds

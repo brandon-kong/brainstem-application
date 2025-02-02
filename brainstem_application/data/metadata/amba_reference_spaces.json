@@ -1,0 +1,82 @@
+[
+    {
+    "age_id": 11,
+    "anatomy": "Brain",
+    "id": 7,
+    "name": "P14 Brain",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod8/reference_spaces_7/"
+    },
+    {
+    "age_id": 71,
+    "anatomy": "Head",
+    "id": 4,
+    "name": "E16.5 Head",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod8/reference_spaces_4/"
+    },
+    {
+    "age_id": 15,
+    "anatomy": "Brain",
+    "id": 10,
+    "name": "P56 Brain (L/R Flipped)",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod7/ReferenceSpace_10/"
+    },
+    {
+    "age_id": 5,
+    "anatomy": "Embryo",
+    "id": 1,
+    "name": "E11.5 Embryo",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod8/reference_spaces_1/"
+    },
+    {
+    "age_id": 7,
+    "anatomy": "Brain",
+    "id": 6,
+    "name": "P4 Brain",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod8/reference_spaces_6/"
+    },
+    {
+    "age_id": 4,
+    "anatomy": "Embryo",
+    "id": 2,
+    "name": "E13.5 Embryo",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod8/reference_spaces_2/"
+    },
+    {
+    "age_id": 2,
+    "anatomy": "Embryo",
+    "id": 3,
+    "name": "E15.5 Embryo",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod8/reference_spaces_3/"
+    },
+    {
+    "age_id": 15,
+    "anatomy": "Brain",
+    "id": 9,
+    "name": "P56 Brain",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod8/reference_spaces_9/"
+    },
+    {
+    "age_id": 14,
+    "anatomy": "Brain",
+    "id": 8,
+    "name": "P28 Brain",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod8/reference_spaces_8/"
+    },
+    {
+    "age_id": 1,
+    "anatomy": "Brain",
+    "id": 5,
+    "name": "E18.5 Brain",
+    "organism_id": 2,
+    "storage_directory": "/external/mouse/prod8/reference_spaces_5/"
+    }
+]

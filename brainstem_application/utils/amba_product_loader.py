@@ -3,24 +3,27 @@ from typing import Optional
 from pydantic import BaseModel
 from constants import BRAINSTEM_APPLICATION_DIR
 
-# Define Pydantic models for any data that is loaded from the database
+from models import AMBAProduct, AMBAReferenceSpace
 
 
-class AMBAProduct(BaseModel):
+def load_amba_reference_spaces():
     """
-    Represents an AMBA product
+    Load the AMBA products from the database
     """
+    # Get the AMBA products from the JSON file
 
-    abbreviation: str
-    description: Optional[str] = None
-    id: int
-    name: str
-    product_name_facet: int
-    resource: Optional[str] = None
-    species: Optional[str] = None
-    species_name_facet: int
-    tags: Optional[str] = None
-
+    try:
+        with open(
+            f"{BRAINSTEM_APPLICATION_DIR}/data/metadata/amba_reference_spaces.json", "r"
+        ) as file:
+            data = json.load(file)
+            return [AMBAReferenceSpace(**product) for product in data]
+    except FileNotFoundError:
+        return None
+    except Exception as e:
+        print(f"An error occurred while loading the AMBA products: {e}")
+        return None
+    
 
 def load_amba_products():
     """
@@ -53,7 +56,7 @@ def get_amba_product_by_id(product_id: int):
     return None
 
 
-def get_list_of_amba_brain_atlas_product_names():
+def get_list_of_amba_brain_atlas_products():
     """
     Get a list of AMBA product names
     """
@@ -68,5 +71,17 @@ def get_list_of_amba_brain_atlas_product_names():
             if "brain" in product.resource.lower()
             and "atlas" in product.resource.lower()
         ]
+
+    return None
+
+def get_list_of_amba_reference_spaces():
+    """
+    Get a list of AMBA reference spaces, sorted by Age ID
+    """
+    reference_spaces = load_amba_reference_spaces()
+
+    if reference_spaces is not None:
+        reference_spaces.sort(key=lambda x: x.age_id)
+        return [(reference_space.id, reference_space.name) for reference_space in reference_spaces]
 
     return None
