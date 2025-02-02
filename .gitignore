@@ -5,6 +5,7 @@
 *.sqlite3
 data/generated/**/*
 data/temp/**/*
+*.csv
 
 # Log files
 *.log
