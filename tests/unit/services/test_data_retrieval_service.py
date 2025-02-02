@@ -2,7 +2,9 @@ import os
 import unittest
 
 
-from brainstem_application.services.data.data_retrieval_service import DataRetrievalService
+from brainstem_application.services.data.data_retrieval_service import (
+    DataRetrievalService,
+)
 
 
 class TestDataRetrievalService(unittest.TestCase):

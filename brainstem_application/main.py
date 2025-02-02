@@ -1,36 +1,59 @@
+"""main.py"""
+
 import sys
+import sqlite3
 from lib.logger import Logger, LogLevel
 
 from utils.menu import Menu
 from utils.printer import Printer
+from utils.menu_presets import DATA_RETRIEVAL_MENU
+from constants import ROOT_DIR
 
-from constants import (
-    ROOT_DIR
-)
+
+from services.data.data_retrieval_service import DataRetrievalService
 
 
 LOG_LEVEL_CONTEXT = LogLevel.DEBUG.name
-logger = Logger(log_file=f"{ROOT_DIR}/logs/activity.log", log_level=LOG_LEVEL_CONTEXT)
+logger = Logger(
+    log_file=f"{ROOT_DIR}/logs/activity.log",
+    log_level=LOG_LEVEL_CONTEXT,
+    create_log_directory=True,
+)
 
 
 def exit_program():
-    Printer.error('Exiting program...')
-    logger.debug('Ending application...')
+    """Logs the ending of the program"""
+
+    Printer.error("Exiting program...")
+    logger.debug("Ending application...")
 
     sys.exit(0)
 
 
 def main():
+    """Entry point of the software's lifecycle"""
+
     logger.debug("Starting application...")
 
+    # Create SQLite database connection
+    db_connection = sqlite3.connect("sqlite3.db")
+
     options = {
-        'Perform K-means clustering': lambda: print('Performing K-means clustering'),
-        'Perform PCA': lambda: print('Performing PCA'),
-        'Perform t-SNE': lambda: print('Performing t-SNE'),
+        "Data Services": lambda: Menu(
+            {
+                "Data Retrieval Service": lambda: DATA_RETRIEVAL_MENU.run()
+            },
+            "Which data service would you like to access?",
+        ).run(),
+        "Perform PCA": lambda: print("Performing PCA"),
+        "Perform t-SNE": lambda: print("Performing t-SNE"),
     }
 
     menu = Menu(options, include_exit=True, include_back=False)
     menu.run()
+
+    # Close the database connection
+    db_connection.close()
 
     exit_program()
 
