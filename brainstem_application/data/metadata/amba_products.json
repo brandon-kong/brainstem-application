@@ -548,5 +548,159 @@
       "species": "Human",
       "species_name_facet": 1688468209,
       "tags": null
+    },
+    {
+      "abbreviation": "MouseRef",
+      "description": "Reference datasets created for the Allen Mouse Brain Atlas.",
+      "id": 12,
+      "name": "Mouse Brain Reference Data",
+      "product_name_facet": 3732634848,
+      "resource": "Allen Mouse Brain Atlas",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
+    },
+    {
+      "abbreviation": "Gbm",
+      "description": "High-resolution ISH data mapping gene expression across the anatomic structures inherent in human glioblastoma and associated histological data.",
+      "id": 17,
+      "name": "Glioblastoma",
+      "product_name_facet": 637191525,
+      "resource": "Ivy Glioblastoma Atlas Project",
+      "species": "Human",
+      "species_name_facet": 1688468209,
+      "tags": "gbm multiforme cancer ivy gap brain tumor"
+    },
+    {
+      "abbreviation": "ConnRetinaFlat",
+      "description": "Fluorescent images of viral tracer injection site in mouse retina.",
+      "id": 30,
+      "name": "Mouse Connectivity Flatmount Retina",
+      "product_name_facet": 2047136518,
+      "resource": "Allen Mouse Brain Connectivity Atlas",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
+    },
+    {
+      "abbreviation": "NhpRef",
+      "description": "Nissl and MRI reference datasets created for the NIH Blueprint Non-Human Primate (NHP) Atlas.",
+      "id": 21,
+      "name": "Non-Human Primate Reference Data",
+      "product_name_facet": 2458108807,
+      "resource": "NIH Blueprint Non-Human Primate (NHP) Atlas",
+      "species": "NHP",
+      "species_name_facet": 3599691041,
+      "tags": null
+    },
+    {
+      "abbreviation": "ConnRetinaProjection",
+      "description": "Image data of the mouse brain detailing axonal projections labeled by viral tracers originating in the retina.",
+      "id": 31,
+      "name": "Mouse Connectivity Retina Projection",
+      "product_name_facet": 1457659571,
+      "resource": "Allen Mouse Brain Connectivity Atlas",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
+    },
+    {
+      "abbreviation": "Mouse",
+      "description": "Genome-wide, high-resolution ISH data detailing gene expression throughout the adult mouse brain.",
+      "id": 1,
+      "name": "Mouse Brain",
+      "product_name_facet": 2757464828,
+      "resource": "Allen Mouse Brain Atlas",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
+    },
+    {
+      "abbreviation": "HumanCellTypes",
+      "description": null,
+      "id": 46,
+      "name": "Human Cell Types",
+      "product_name_facet": 3672389021,
+      "resource": "Human Cell Types Database",
+      "species": "Human",
+      "species_name_facet": 1688468209,
+      "tags": null
+    },
+    {
+      "abbreviation": "ConnAlzAntCre",
+      "description": "Image data of the mouse brain detailing axonal projections labeled by Cre-dependent viral tracers and amyloid plaques labeled by methoxy-X04 in the APP/PS1 Alzheimer's disease mouse line crossed with Cre driver lines.",
+      "id": 55,
+      "name": "Mouse Connectivity Alzheimer anterograde Cre-defined",
+      "product_name_facet": 623725418,
+      "resource": "Allen Mouse Brain Connectivity Atlas",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
+    },
+    {
+      "abbreviation": "ImageChangeDetectionMultiPlaneOphysInterleave",
+      "description": "Time series of behavioral variables and neural activity measured with multi-plane in vivo 2-photon imaging in mice performing a visual change detection task where mice were trained with image set G and tested with a novel image set H where image set H contains 2 images from the training set",
+      "id": 63,
+      "name": "Multi-plane optical physiology during image change detection with interleaved familiar and novel images",
+      "product_name_facet": 1944242237,
+      "resource": "Allen Brain Observatory",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
+    },
+    {
+      "abbreviation": "CellTypeConnMap",
+      "description": "Image data of the mouse brain detailing axonal projections labeled by viral tracers for cell type characterization",
+      "id": 45,
+      "name": "Connectivity projection mapping for cell type characterization",
+      "product_name_facet": 3219480704,
+      "resource": "Allen Mouse Brain Connectivity Atlas",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
+    },
+    {
+      "abbreviation": "MouseCellTypes",
+      "description": "Allen Cell Types Database",
+      "id": 33,
+      "name": "Mouse Cell Types",
+      "product_name_facet": 1945280279,
+      "resource": "Mouse Cell Types Database.",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": "mouse neuron neuronal cell electrophysiology ephys current clamp patch morphology dendritic tree glif biophysical perisomatic active dendrite model abstract point visual cortex vis"
+    },
+    {
+      "abbreviation": "ConnProj",
+      "description": "Image data of the mouse brain detailing axonal projections labeled by viral tracers.",
+      "id": 5,
+      "name": "Mouse Connectivity Projection",
+      "product_name_facet": 3981643079,
+      "resource": "Allen Mouse Brain Connectivity Atlas",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
+    },
+    {
+      "abbreviation": "MouseSpinal",
+      "description": "Genome-wide, high-resolution ISH data detailing gene expression throughout the mouse spinal cord at postnatal days 4 and 56.",
+      "id": 13,
+      "name": "Mouse Spinal Cord",
+      "product_name_facet": 3053077678,
+      "resource": "Allen Spinal Cord Atlas",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
+    },
+    {
+      "abbreviation": "MouseSpinalRef",
+      "description": "Reference datasets created for the Allen Spinal Cord Atlas.",
+      "id": 14,
+      "name": "Mouse Spinal Cord Reference Data",
+      "product_name_facet": 4259401854,
+      "resource": "Allen Spinal Cord Atlas",
+      "species": "Mouse",
+      "species_name_facet": 1861523945,
+      "tags": null
     }
 ]

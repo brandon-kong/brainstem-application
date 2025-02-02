@@ -12,6 +12,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__)) + "/.."
 BRAINSTEM_APPLICATION_DIR = os.path.dirname(os.path.abspath(__file__))
 
 DATA_DIR = f"{ROOT_DIR}/data"
+DATA_TEMP_DIR = f"{DATA_DIR}/temp"
 DATA_GENERATED_DIR = f"{DATA_DIR}/generated"
 DATA_GENERATED_GENESET_DIR = f"{DATA_GENERATED_DIR}/geneset"
 
@@ -24,3 +25,11 @@ AMBA_ATLAS_IDS = {
 }
 
 AMBA_PRODUCT_IDS = {}
+
+class PlaneOfSection:
+    """
+    Plane of Section constants
+    """
+    CORONAL = 1
+    SAGITTAL = 2
+

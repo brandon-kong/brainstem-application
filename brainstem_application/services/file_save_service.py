@@ -2,12 +2,14 @@
 This module contains the FileSaveService class, which is a service that saves data to a file.
 """
 
+import io
 import os
+import zipfile
 import requests
 from typing import Optional
 from pydantic import BaseModel
 
-from constants import DATA_GENERATED_GENESET_DIR
+from constants import DATA_GENERATED_GENESET_DIR, DATA_TEMP_DIR
 
 from services.base import Service
 
@@ -15,6 +17,30 @@ from services.base import Service
 class FileSaveService(Service):
     def __init__(self):
         super().__init__("Data Retrieval Service")
+
+    @staticmethod
+    def unzip_grid_expression_data(grid_expression_data: bytes, path: str = DATA_TEMP_DIR):
+        """
+        Unzip grid expression data
+        """
+        FileSaveService.create_directory_if_not_exists(path)
+
+        with zipfile.ZipFile(grid_expression_data, 'r') as zip_ref:
+            zip_ref.extractall(path)
+        
+    @staticmethod
+    def save_grid_expression_data_to_file(grid_expression_data: bytes, file_name: str):
+        """
+        Save grid expression data to a file
+        """
+        FileSaveService.create_directory_if_not_exists(DATA_TEMP_DIR)
+
+        new_path = f"{DATA_TEMP_DIR}/{file_name}"
+
+        new_zip = zipfile.ZipFile(new_path, 'w')
+        new_zip.write(grid_expression_data)
+        new_zip.close()
+
 
     @staticmethod
     def create_directory_if_not_exists(directory: str):

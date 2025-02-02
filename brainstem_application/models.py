@@ -1,6 +1,13 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
+class PlaneOfSection(BaseModel):
+    id: int
+    name: str
+    plane_of_section_name_facet: int
+
+    
 class Gene(BaseModel):
     acronym: str
     alias_tags: Optional[str] = None
@@ -50,16 +57,17 @@ class SectionDataSet(BaseModel):
     id: int
     name: Optional[str] = None
     plane_of_section_id: int
-    qc_date: str
+    qc_date: Optional[str]
     red_channel: Optional[str] = None
     reference_space_id: int
     rnaseq_design_id: Optional[int] = None
-    section_thickness: int
+    section_thickness: float
     specimen_id: int
     sphinx_id: int
     storage_directory: Optional[str] = None
     weight: int
     genes: Optional[list[Gene]] = None
+    plane_of_section: Optional[PlaneOfSection] = None
 
 
 class AMBAProduct(BaseModel):

@@ -4,6 +4,7 @@
 # Data files
 *.sqlite3
 data/generated/**/*
+data/temp/**/*
 
 # Log files
 *.log
