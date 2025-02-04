@@ -9,7 +9,7 @@ import requests
 from typing import Optional
 from pydantic import BaseModel
 
-from constants import DATA_GENERATED_GENESET_DIR, DATA_TEMP_DIR
+from constants import DATA_GENERATED_GENESET_DIR, DATA_TEMP_DIR, DATA_GENERATED_SECTION_DATASET_DIR
 
 from services.base import Service
 
@@ -17,6 +17,21 @@ from services.base import Service
 class FileSaveService(Service):
     def __init__(self):
         super().__init__("Data Retrieval Service")
+
+    @staticmethod
+    def save_section_dataset_ids_to_file(section_dataset_ids: list[int], file_name: str):
+        """
+        Save section dataset IDs to a file
+        """
+        FileSaveService.create_directory_if_not_exists(DATA_GENERATED_SECTION_DATASET_DIR)
+
+        new_path = f"{DATA_GENERATED_SECTION_DATASET_DIR}/{file_name}"
+
+        with open(f"{new_path}", "w") as file:
+            for section_dataset_id in section_dataset_ids:
+                file.write(f"{section_dataset_id}\n")
+
+        print(f"Section dataset IDs exported to {new_path}")
 
     @staticmethod
     def unzip_grid_expression_data(grid_expression_data: bytes, path: str = DATA_TEMP_DIR):

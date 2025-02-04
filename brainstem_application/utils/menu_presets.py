@@ -67,15 +67,17 @@ def retrieve_section_dataset_ids(reference_space_id: int, is_delegate: bool, pla
     """
     Retrieve section dataset IDs from a gene with a reference space
     """
-    section_dataset_ids = time_function(DataRetrievalService.get_section_dataset_ids_with_reference_space_id)(reference_space_id, delegate=is_delegate, should_contain_genes=True, plane_of_section_id=plane_of_section)
+    section_dataset_ids: list[SectionDataSet] = time_function(DataRetrievalService.get_section_dataset_ids_with_reference_space_id)(reference_space_id, delegate=is_delegate, should_contain_genes=True, plane_of_section_id=plane_of_section)
 
     if section_dataset_ids is not None:
         Printer.info(f"{comma_separated_number(len(section_dataset_ids))} section dataset IDs found in reference space {reference_space_id}")
-    Menu(
+    
+        section_dataset_list = [section_dataset.id for section_dataset in section_dataset_ids]
+        Menu(
         {
             "View Section Dataset IDs": lambda: print(section_dataset_ids),
             "Get Grid Expression Data": lambda: retrieve_grid_expression_data(section_dataset_ids),
-            #"Export Section Dataset IDs": lambda: FileSaveService.save_section_dataset_ids_to_file(section_dataset_ids, f"section_dataset_ids_{gene_acronym}_{reference_space_id}.txt"),
+            "Export Section Dataset IDs": lambda: FileSaveService.save_section_dataset_ids_to_file(section_dataset_list, f"section_dataset_ids_reference_{reference_space_id}_{plane_of_section == 1 and "coronal" or "sagittal"}.txt"),
         },
         start_message="What would you like to do with the section dataset IDs?",
         stop_on_selection=False,
